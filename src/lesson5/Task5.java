@@ -8,25 +8,6 @@ import java.util.ArrayList;
 public class Task5 {
     String t;
 
-    public static void main(String[] msi) {
-
-        // System.out.println(f_palindrome("Loww ol"));
-        // System.out.println(f_removeDuplicates("qwezrty1122qwerty33445566778899qwerty"));
-        // System.out.println(f_anagram("Kot", "tOK"));
-        // System.out.println(f_compareTo("12381", "1238"));
-        // System.out.println(f_compareIgnoreCase("Kot", "koT"));
-        // System.out.println("Hello".f_concat("World"));// tut
-        // System.out.println(len("Kot"));
-        // System.out.println(f_contentEquals("hello", "hello"));
-        // System.out.println(f_equals("suuucces", "suuuccez"));
-        // System.out.println(f_endsWith("hello", "llo"));
-        // System.out.println(f_startsWith("hell", "he"));
-        // System.out.println(f_repeatThreeChar("suuuccess"));
-        // System.out.println(sumInt("123"));
-        // System.out.println(f_firstChar("suuucces"));
-        // System.out.println(repeatChar("suuuccess"));
-    }
-
     public static boolean f_palindrome(String str) {
         return str.replaceAll("\\W", "")
                 .equalsIgnoreCase(new StringBuilder(str.replaceAll("\\W", "")).reverse().toString());
@@ -118,7 +99,7 @@ public class Task5 {
         return new String(s);
     }
 
-    public static char repeatChar(String str) {
+    public static char f_repeatChar(String str) {
         HashMap<Character, Integer> map = new HashMap<>();
         int i = -1;
         while (++i < str.length())
