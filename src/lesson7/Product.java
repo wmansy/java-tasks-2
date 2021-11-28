@@ -1,6 +1,6 @@
 package lesson7;
 
-public class Product {
+public class Product{
     String name;
     double price;
     String category;
@@ -10,4 +10,9 @@ public class Product {
         this.price = price;
         this.category = category;
     }
+
+    @Override
+    public String toString(){
+        return (name + " " + price + " rub");
+   }
 }

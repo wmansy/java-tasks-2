@@ -1,5 +1,12 @@
 package lesson7;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -65,11 +72,11 @@ public class Store {
         int i = 0;
         for (Product p : cart)
             System.out.println(++i + ") " + p.name + " " + p.price + "rub");
-        System.out.print("\n    Enter 0 to get to the menu or 3 go to payment: ");
+        System.out.print("\n    Enter 0 to get to the menu or 4 go to payment: ");
         i = sc.hasNextInt() ? sc.nextInt() : 0;
         if (i == 0)
             getMenu();
-        else if (i == 3)
+        else if (i == 4)
             payment();
     }
 
@@ -103,12 +110,53 @@ public class Store {
         for (Product p : cart)
             cost += p.price;
         System.out.println("The cost of your cart: " + cost);
-        System.out.println("Enter 1 to pay or 0 to exit: ");
+        System.out.print("Enter 1 to pay or 0 to exit: ");
         cost = sc.hasNextInt() ? sc.nextInt() : 0;
-        if (cost == 1)
-            System.out.println("Success");
-        else if (cost == 0)
+        if (cost == 1) {
+            write();
+            System.out.println("success");
+        } else if (cost == 0)
             getMenu();
+    }
+
+    public void write() {
+        int i = 0;
+        try {
+            PrintWriter out = new PrintWriter(new FileOutputStream(new File("src\\lesson7\\cart")));
+            for (Product p : cart)
+                out.println(++i + ") " + p.name + " " + p.price + " rub");
+            out.flush();
+            out.close();
+            System.out.println("File has been written");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void serialized() {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(
+                    new FileOutputStream(new File("src\\lesson7\\ser")));
+            out.writeObject(cart.toString());
+            out.close();
+            System.out.println("File has been serialized");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String deserialized() {
+        String ser = "";
+        try {
+            ObjectInputStream input = new ObjectInputStream(
+                    new FileInputStream("src\\lesson7\\ser"));
+            ser = (String) input.readObject();
+            input.close();
+            System.out.println("File has been deserialized");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ser;
     }
 
     public void getMenu() {
@@ -148,9 +196,13 @@ public class Store {
         Store s = new Store();
         System.out.println("Welcome to my store\nLog in to your account");
         s.fill();
+
         User user = s.auth();
         if (user.login != "")
             s.getMenu();
+
+        s.serialized();
+        System.out.println(s.deserialized());
         s.sc.close();
     }
 }
