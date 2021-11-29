@@ -192,7 +192,7 @@ public class Store {
                 category.add(p.category);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] msi) {
         Store s = new Store();
         System.out.println("Welcome to my store\nLog in to your account");
         s.fill();
